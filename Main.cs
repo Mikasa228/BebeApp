@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace BebeApp
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
-        List<string> verbs = new List<string> {"Резать", "Завидовать", "Убить", "Бриться", "Тратить", 
-            "Играть", "Воевать", "Предавать", "Прыгать", "Склоняться", "Просыпаться", "Страдать", 
-            "Отодвигать", "Переделывать", "Улучшать", "Пережить", "Учить", "Подарить" };
+        //List<string> verbs = new List<string> {"Резать", "Завидовать", "Убить", "Бриться", "Тратить", 
+        //    "Играть", "Воевать", "Предавать", "Прыгать", "Склоняться", "Просыпаться", "Страдать", 
+        //    "Отодвигать", "Переделывать", "Улучшать", "Пережить", "Учить", "Подарить" };
+
+        public static BindingList<string> verbs = new BindingList<string>();
         
         List<string> who = new List<string> { "io", "tu", "voi(f)", "voi(m)", "noi(f)", 
             "noi(m)", "lei/lui", "loro(f)", "loro(m)" };
@@ -32,16 +35,22 @@ namespace BebeApp
             "Congiuntivo trapassato", 
             "Imperativo", 
             "Congiuntivo presente" };
+
+
         Random rand = new Random(); 
         
-        public Form1()
+        public Main()
         {
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            foreach (var item in File.ReadAllLines("Words.txt"))
+            {
+                verbs.Add(item);
+            }
+            FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -54,6 +63,13 @@ namespace BebeApp
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var wordsForm = new Words();
+
+            wordsForm.Show();
         }
     }
 }
